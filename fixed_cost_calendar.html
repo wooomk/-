@@ -214,7 +214,8 @@ canvas#annualChart{width:100%!important;max-width:100%;}
   .top-bar{padding:0 12px;height:52px;gap:6px;}
   .top-bar h1{font-size:15px;}
   .top-bar h1 .title-sub{display:none;}
-  .btn-secondary{display:none;} /* 규칙관리 버튼 숨김 → 하단탭으로 */
+  .btn-secondary{display:none!important;} /* 규칙관리 버튼 숨김 → 하단탭으로 */
+  .top-bar-actions .btn-primary{font-size:12px;padding:7px 12px;border-radius:8px;}
   .btn-primary{font-size:12px;padding:6px 10px;}
 
   /* 탭: 상단→하단 고정 */
@@ -230,17 +231,19 @@ canvas#annualChart{width:100%!important;max-width:100%;}
   /* ── 타임라인 모바일 ── */
   .calendar-wrapper{border-radius:0;border-left:none;border-right:none;}
   .cal-table-container{max-height:calc(100vh - 120px);}
-  .cal-table{min-width:0;width:100%;}
+  .cal-table{min-width:0;width:100%;table-layout:fixed;}
+  .col-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 
   /* 헤더 간소화 */
   .cal-table thead th{padding:10px 6px;font-size:10px;letter-spacing:.3px;}
   .col-sub{display:none!important;}   /* 소구분 숨김 */
+  th.col-sub{display:none!important;}
   .col-memo{display:none!important;}  /* 메모 숨김 */
   .col-date{width:72px;}
   .col-day{width:30px;}
   .col-type{width:50px;}
   .col-name{min-width:80px;}
-  .col-amount{width:90px;}
+  .col-amount{width:85px;min-width:75px;}
 
   /* 바디 셀 */
   .cal-table tbody td{padding:8px 6px;font-size:12px;}
@@ -980,16 +983,20 @@ document.addEventListener('DOMContentLoaded',init);
 <!-- MOBILE BOTTOM NAV -->
 <nav class="mobile-bottom-nav" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:400;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);height:62px;align-items:center;justify-content:space-around;padding:0 4px;box-shadow:0 -2px 16px rgba(0,0,0,.08);">
   <button class="mob-nav-btn active" id="mobTabTimeline" onclick="switchTab('timeline');setMobTab('mobTabTimeline')">
-    <span style="font-size:20px">📋</span><span>타임라인</span>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+    <span>타임라인</span>
   </button>
   <button class="mob-nav-btn" id="mobTabGrid" onclick="switchTab('grid');setMobTab('mobTabGrid')">
-    <span style="font-size:20px">📅</span><span>달력</span>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    <span>달력</span>
   </button>
   <button class="mob-nav-btn" id="mobTabAnnual" onclick="switchTab('annual');setMobTab('mobTabAnnual')">
-    <span style="font-size:20px">📊</span><span>연간</span>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    <span>연간</span>
   </button>
   <button class="mob-nav-btn" id="mobTabRules" onclick="toggleMasterPanel()">
-    <span style="font-size:20px">⚙️</span><span>규칙</span>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    <span>규칙</span>
   </button>
 </nav>
 
@@ -998,9 +1005,10 @@ document.addEventListener('DOMContentLoaded',init);
 
 <!-- drag handle inside master panel -->
 <style>
-.mob-nav-btn{font-family:'Pretendard',sans-serif;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;font-weight:600;color:var(--text-muted);background:none;border:none;cursor:pointer;padding:6px 12px;border-radius:12px;transition:all .15s;min-width:60px;}
+.mob-nav-btn{font-family:'Pretendard',sans-serif;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:600;color:var(--text-muted);background:none;border:none;cursor:pointer;padding:5px 10px;border-radius:12px;transition:all .15s;min-width:58px;}
+.mob-nav-btn svg{transition:all .15s;stroke:var(--text-muted);}
 .mob-nav-btn.active{color:var(--text-primary);}
-.mob-nav-btn.active span:first-child{transform:scale(1.15);}
+.mob-nav-btn.active svg{stroke:var(--text-primary);}
 .master-panel-drag{display:none;width:100%;padding:12px 0 4px;text-align:center;cursor:grab;flex-shrink:0;}
 .master-panel-drag::after{content:'';display:inline-block;width:40px;height:4px;background:var(--border);border-radius:2px;}
 </style>
