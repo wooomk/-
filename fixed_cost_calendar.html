@@ -236,14 +236,15 @@ canvas#annualChart{width:100%!important;max-width:100%;}
 
   /* 헤더 간소화 */
   .cal-table thead th{padding:10px 6px;font-size:10px;letter-spacing:.3px;}
+  .col-type{display:none!important;}  /* 구분 숨김 */
   .col-sub{display:none!important;}   /* 소구분 숨김 */
+  th.col-type{display:none!important;}
   th.col-sub{display:none!important;}
   .col-memo{display:none!important;}  /* 메모 숨김 */
-  .col-date{width:72px;}
-  .col-day{width:30px;}
-  .col-type{width:50px;}
-  .col-name{min-width:80px;}
-  .col-amount{width:85px;min-width:75px;}
+  .col-date{width:78px;}
+  .col-day{width:34px;}
+  .col-name{min-width:0;flex:1;}
+  .col-amount{width:90px;}
 
   /* 바디 셀 */
   .cal-table tbody td{padding:8px 6px;font-size:12px;}
